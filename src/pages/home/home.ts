@@ -13,4 +13,9 @@ export class HomePage {
 
   }
 
+  //FAZ A NAVEGAÇÃO DA HOME PAGE PARA A CATEGORIA PAGE
+  login(){
+    this.navCtrl.setRoot('CategoriasPage');
+  }
+
 }
