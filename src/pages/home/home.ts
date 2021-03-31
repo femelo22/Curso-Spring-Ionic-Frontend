@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController } from 'ionic-angular';
+import { IonicPage, MenuController, NavController } from 'ionic-angular';
 
 @IonicPage()
 
@@ -9,8 +9,16 @@ import { IonicPage, NavController } from 'ionic-angular';
 })
 export class HomePage {
 
-  constructor(public navCtrl: NavController) {
+  constructor(public navCtrl: NavController, public menu: MenuController) {
 
+  }
+
+  ionViewWillEnter(){ //quando entrar no login, tira a função de aparecer o menu
+    this.menu.swipeEnable(false);
+  }
+
+  ionViewDidLeave(){//quando sair do login, volta a função de aparecer o menu
+    this.menu.swipeEnable(true);
   }
 
   //FAZ A NAVEGAÇÃO DA HOME PAGE PARA A CATEGORIA PAGE
