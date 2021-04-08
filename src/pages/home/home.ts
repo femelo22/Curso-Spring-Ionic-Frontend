@@ -33,8 +33,8 @@ export class HomePage {
   //FAZ A NAVEGAÇÃO DA HOME PAGE PARA A CATEGORIA PAGE
   login() {
     this.auth.authenticate(this.creds)
-      .subscribe(resp => {
-        console.log(resp.headers.get('Authorization'));
+      .subscribe(resposta => {
+        this.auth.successfulLogin(resposta.headers.get('Authorization'));
         this.navCtrl.setRoot('CategoriasPage');
       },
       error => {});
