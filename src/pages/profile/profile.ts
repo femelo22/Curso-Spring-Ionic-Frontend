@@ -23,13 +23,19 @@ export class ProfilePage {
 
   ionViewDidLoad() {
     let localUser = this.storage.getLocalUser();
-    if(localUser && localUser.email){
+    if (localUser && localUser.email) {
       this.clienteService.findByEmail(localUser.email)
         .subscribe(response => {
           this.cliente = response;
           this.getImageIfExists();
         },
-        error => {});
+          error => {
+            if (error.status == 403) {
+              this.navCtrl.setRoot('HomePage');
+            }
+          });
+    } else {
+      this.navCtrl.setRoot('HomePage');
     }
   }
 
@@ -38,7 +44,7 @@ export class ProfilePage {
       .subscribe(response => {
         this.cliente.imageUrl = `${API_CONFIG.bucketBaseUrl}/cli${this.cliente.id}.jpg`;
       },
-      error => {});
+        error => { });
   }
 
 }
