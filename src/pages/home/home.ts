@@ -1,56 +1,55 @@
 import { Component } from '@angular/core';
-import { IonicPage, MenuController, NavController } from 'ionic-angular';
+import { NavController, IonicPage } from 'ionic-angular';
+import { MenuController } from 'ionic-angular/components/app/menu-controller';
 import { CredenciaisDTO } from '../../models/credenciais.dto';
 import { AuthService } from '../../services/auth.service';
 
 @IonicPage()
-
 @Component({
   selector: 'page-home',
-  templateUrl: 'home.html' //referencia para qual arquivo está controlando
+  templateUrl: 'home.html'
 })
 export class HomePage {
 
-  creds: CredenciaisDTO = {
+  creds : CredenciaisDTO = {
     email: "",
     senha: ""
   };
 
-  constructor(public navCtrl: NavController,
+  constructor(
+    public navCtrl: NavController, 
     public menu: MenuController,
     public auth: AuthService) {
 
   }
 
-  ionViewWillEnter() { //quando entrar no login, tira a função de aparecer o menu
+  ionViewWillEnter() {
     this.menu.swipeEnable(false);
   }
-
-  ionViewDidLeave() {//quando sair do login, volta a função de aparecer o menu
+    
+  ionViewDidLeave() {
     this.menu.swipeEnable(true);
   }
 
   ionViewDidEnter() {
     this.auth.refreshToken()
-    .subscribe(resposta => {
-      this.auth.successfulLogin(resposta.headers.get('Authorization'));
-      this.navCtrl.setRoot('CategoriasPage');
-    },
-    error => {});
-  }
-
-  //FAZ A NAVEGAÇÃO DA HOME PAGE PARA A CATEGORIA PAGE
-  login() {
-    this.auth.authenticate(this.creds)
-      .subscribe(resposta => {
-        this.auth.successfulLogin(resposta.headers.get('Authorization'));
+      .subscribe(response => {
+        this.auth.successfulLogin(response.headers.get('Authorization'));
         this.navCtrl.setRoot('CategoriasPage');
       },
-      error => {});
+      error => {});  
   }
 
+  login() {
+    this.auth.authenticate(this.creds)
+      .subscribe(response => {
+        this.auth.successfulLogin(response.headers.get('Authorization'));
+        this.navCtrl.setRoot('CategoriasPage');
+      },
+      error => {});    
+  }
+ 
   signup() {
     this.navCtrl.push('SignupPage');
   }
-
 }

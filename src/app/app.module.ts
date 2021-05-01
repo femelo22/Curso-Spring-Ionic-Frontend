@@ -13,8 +13,11 @@ import { AuthService } from '../services/auth.service';
 import { StorageService } from '../services/storage.service';
 import { ClienteService } from '../services/domain/cliente.service';
 import { AuthInterceptorProvider } from '../interceptors/auth-interceptor';
+import { ProdutoService } from '../services/domain/produto.service';
+import { CartService } from '../services/domain/cart.service';
+import { ImageUtilService } from '../services/image-util.service';
 
-@NgModule({ //DECORATOR -> DEFINE O QUE VAI SE RENDERIZADO
+@NgModule({
   declarations: [
     MyApp
   ],
@@ -27,7 +30,7 @@ import { AuthInterceptorProvider } from '../interceptors/auth-interceptor';
   entryComponents: [
     MyApp
   ],
-  providers: [//CLASSES PARA SER 1 INSTANCIA UNICA PARA ESSE MODULO
+  providers: [
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
@@ -36,7 +39,10 @@ import { AuthInterceptorProvider } from '../interceptors/auth-interceptor';
     ErrorInterceptorProvider,
     AuthService,
     StorageService,
-    ClienteService
+    ClienteService,
+    ProdutoService,
+    CartService,
+    ImageUtilService
   ]
 })
 export class AppModule {}

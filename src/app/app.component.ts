@@ -10,21 +10,23 @@ import { AuthService } from '../services/auth.service';
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
-  rootPage: string = 'HomePage'; //diz quem é a págian inicial do aplicativo
+  rootPage: string = 'HomePage';
 
   pages: Array<{title: string, component: string}>;
 
   constructor(
-    public platform: Platform,
-    public statusBar: StatusBar,
+    public platform: Platform, 
+    public statusBar: StatusBar, 
     public splashScreen: SplashScreen,
-    public auth: AuthService) {
+    public auth: AuthService
+  ) {
     this.initializeApp();
 
-    // lista de ITENS de menu
+    // used for an example of ngFor and navigation
     this.pages = [
       { title: 'Profile', component: 'ProfilePage' },
-      { title: 'Categorias', component: 'CategoriasPage'},
+      { title: 'Categorias', component: 'CategoriasPage' },
+      { title: 'Carrinho', component: 'CartPage'},
       { title: 'Logout', component: ''}
     ];
 
@@ -39,15 +41,16 @@ export class MyApp {
     });
   }
 
-  openPage(page : {title: string, component: string}) {
-    switch(page.title) {
-       case 'Logout':
-         this.auth.logout();
-         this.nav.setRoot('HomePage');
-         break;
-      
+  openPage(page : {title:string, component:string}) {
+
+    switch (page.title) {
+      case 'Logout':
+      this.auth.logout();
+      this.nav.setRoot('HomePage');
+      break;
+
       default:
-        this.nav.setRoot(page.component);
-    }   
+      this.nav.setRoot(page.component);
+    }
   }
 }
